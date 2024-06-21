@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,8 +12,11 @@ public class PlayerController : MonoBehaviour
     float axisH = 0.0f;
     //歩く速さ
     public float speed = 5.0f;
-    //眠気ゲージ
     //恋しいにゃーゲージ（マックスになると帰宅）
+    public int nowLove = 1;
+    public int maxLove = 6;
+    //恋しいにゃーゲージクラス呼び出し用
+    private LoveGaugeManager loveGaugeManager;
     //元気ゲージ
     //食べ過ぎゲージ（元気を越えて食べすぎると眠ってしまいタイムロス）
     //重力　初期値1.5 ステージによって変える
@@ -24,6 +28,7 @@ public class PlayerController : MonoBehaviour
     //地面レイヤーを指定する
     public LayerMask groundLayer;
     
+    
 
     private SpriteRenderer spriteRenderer;
     
@@ -33,6 +38,8 @@ public class PlayerController : MonoBehaviour
         //rigidbody2d取得
         rbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        loveGaugeManager = FindObjectOfType<LoveGaugeManager>();
+        UpdateLoveGauge();
         
     }
 
@@ -74,6 +81,13 @@ public class PlayerController : MonoBehaviour
                 goJump = false;
             }
     }
+    private void OnTriggerEnter2D(Collider2D collision) {
+        //恋しいにゃ〜ゲージに関与するアイテムに触った時の処理
+        if(collision.gameObject.tag=="LoveItem"){
+            IncreaseLove();
+            Destroy(collision.gameObject);
+        }    
+    }
     //オブジェクトを渡して、地面にいるか判定する
     public bool onGroundCheck(GameObject obj){
         bool onGround = Physics2D.CircleCast(transform.position,0.2f,Vector2.down,0.0f,groundLayer);
@@ -82,5 +96,38 @@ public class PlayerController : MonoBehaviour
     //ジャンプメソッド　ジャンプフラグをONにする
     public void Jump(){
         goJump = true;
+    }
+    //恋しいにゃーゲージの増加と帰宅に関する処理
+    public void IncreaseLove()
+    {
+        if (nowLove < maxLove)
+        {
+            nowLove++;
+            UpdateLoveGauge();
+        }
+
+        if (nowLove == maxLove)
+        {
+            //恋しいにゃ〜
+            Debug.Log("BIG Love!!!!!!!!!");
+        }
+    }
+    //恋しいにゃ〜ゲージ増加用
+    public void IncreaseMaxLove()
+    {
+        if (maxLove < loveGaugeManager.hearts.Length)
+        {
+            maxLove++;
+            UpdateLoveGauge();  
+        }
+    }
+
+    //恋しいにゃ〜ゲージ見た目変更
+    private void UpdateLoveGauge()
+    {
+        if (loveGaugeManager != null)
+        {
+            loveGaugeManager.UpdateHearts(nowLove, maxLove);
+        }
     }
 }
