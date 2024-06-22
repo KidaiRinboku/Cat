@@ -5,13 +5,16 @@ using UnityEngine;
 [ExecuteAlways]
 public class CameraAspectRatioHandler : MonoBehaviour
 {
-    public float targetAspect = 16.0f / 9.0f; // 目標のアスペクト比
+    public float aspectWidth = 16.0f;
+     public float aspectHeight = 9.0f;
+    private float targetAspect;  // 目標のアスペクト比
     private float lastScreenWidth;
     private float lastScreenHeight;
 
 
     void Start()
     {
+        targetAspect = aspectWidth / aspectHeight;
         AdjustCameraSize();
         lastScreenWidth = Screen.width;
         lastScreenHeight = Screen.height;
