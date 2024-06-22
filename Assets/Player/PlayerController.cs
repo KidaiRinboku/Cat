@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("axisH:"+axisH);
+        //Debug.Log("axisH:"+axisH);
         //地面判定
         bool onGround = onGroundCheck(gameObject);
         //歩く用の入力チェック
