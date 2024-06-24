@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     //地面レイヤーを指定する
     public LayerMask groundLayer;
     private SpriteRenderer spriteRenderer;
+    //シーンコントローラー
+    SceneController sceneController;
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         loveGaugeManager = FindObjectOfType<LoveGaugeManager>();
+        sceneController = GetComponent<SceneController>();
         UpdateLoveGauge();
         
     }
@@ -107,6 +110,9 @@ public class PlayerController : MonoBehaviour
         {
             //恋しいにゃ〜
             Debug.Log("BIG Love!!!!!!!!!");
+            sceneController.SwitchScene();
+
+            
         }
     }
     //恋しいにゃ〜ゲージ増加用
