@@ -237,7 +237,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b09ae782ab9544586aca038eae43f5a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 113077a61b0404726a0ef0508d7446a0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -323,9 +323,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.049888164
+    y: 0.05011207
     width: 1
-    height: 0.9002237
+    height: 0.89977586
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

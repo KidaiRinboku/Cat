@@ -27,9 +27,6 @@ public class PlayerController : MonoBehaviour
     bool goJump = false;
     //地面レイヤーを指定する
     public LayerMask groundLayer;
-    
-    
-
     private SpriteRenderer spriteRenderer;
     
     // Start is called before the first frame update
