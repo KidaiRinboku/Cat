@@ -30,7 +30,9 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     //シーンコントローラー
     SceneController sceneController;
-    
+    //こいしにゃ〜ゲージアイテムのステータス取得用
+    LoveItemManager loveItemManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,7 +86,8 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         //恋しいにゃ〜ゲージに関与するアイテムに触った時の処理
         if(collision.gameObject.tag=="LoveItem"){
-            IncreaseLove();
+            loveItemManager = collision.GetComponent<LoveItemManager>();
+            IncreaseLove(loveItemManager.loveUp);
             Destroy(collision.gameObject);
         }    
     }
@@ -98,15 +101,19 @@ public class PlayerController : MonoBehaviour
         goJump = true;
     }
     //恋しいにゃーゲージの増加と帰宅に関する処理
-    public void IncreaseLove()
+    public void IncreaseLove(int addLove)
     {
-        if (nowLove < maxLove)
-        {
-            nowLove++;
+        for(int i = 0; i < addLove;i++){
+            if(nowLove >= maxLove){
+                //恋しいにゃ〜
+                Debug.Log("BIG Love!hoge!!!!!!!!");
+                sceneController.SwitchScene(); 
+                return;               
+            }
+            nowLove ++;
             UpdateLoveGauge();
-        }
-
-        if (nowLove == maxLove)
+        } 
+        if (nowLove >= maxLove)
         {
             //恋しいにゃ〜
             Debug.Log("BIG Love!!!!!!!!!");
