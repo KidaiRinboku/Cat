@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-// [ExecuteAlways]
 public class CameraAspectRatioHandler : MonoBehaviour
 {
     public float aspectWidth = 16.0f;
-     public float aspectHeight = 9.0f;
-    private float targetAspect;  // 目標のアスペクト比
+    public float aspectHeight = 9.0f;
+    private float targetAspect;
     private float lastScreenWidth;
     private float lastScreenHeight;
-
 
     void Start()
     {
@@ -19,7 +15,9 @@ public class CameraAspectRatioHandler : MonoBehaviour
         lastScreenWidth = Screen.width;
         lastScreenHeight = Screen.height;
     }
-        private void Update() {
+
+    void Update()
+    {
         if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
         {
             AdjustCameraSize();
@@ -30,7 +28,6 @@ public class CameraAspectRatioHandler : MonoBehaviour
 
     void AdjustCameraSize()
     {
-        // 現在のスクリーンのアスペクト比を取得
         float windowAspect = (float)Screen.width / (float)Screen.height;
         float scaleHeight = windowAspect / targetAspect;
 
@@ -38,28 +35,21 @@ public class CameraAspectRatioHandler : MonoBehaviour
 
         if (scaleHeight < 1.0f)
         {
-            // 縦に黒いバーが必要な場合
             Rect rect = camera.rect;
-
             rect.width = 1.0f;
             rect.height = scaleHeight;
             rect.x = 0;
             rect.y = (1.0f - scaleHeight) / 2.0f;
-
             camera.rect = rect;
         }
         else
         {
-            // 横に黒いバーが必要な場合
             float scaleWidth = 1.0f / scaleHeight;
-
             Rect rect = camera.rect;
-
             rect.width = scaleWidth;
             rect.height = 1.0f;
             rect.x = (1.0f - scaleWidth) / 2.0f;
             rect.y = 0;
-
             camera.rect = rect;
         }
     }

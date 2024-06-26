@@ -11,11 +11,11 @@ public class LoveGaugeManager : MonoBehaviour
     public Sprite fullHeart; // 赤いハート画像
     public Sprite hiddenHeart; // 非表示のハート画像
 
-    public void UpdateHearts(int currentLove, int maxLove)
+    public void UpdateHearts(int nowLove, int maxLove)
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (i < currentLove)
+            if (i < nowLove)
             {
                 hearts[i].sprite = fullHeart;
             }
