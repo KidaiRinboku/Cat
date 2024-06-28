@@ -5,14 +5,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     PlayerController playerController;
-    GameObject player;
+    public GameObject player;
 
     SceneController playerSceneController;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerSceneController = player.GetComponent<SceneController>();
+        if(player != null){
+            playerSceneController = player.GetComponent<SceneController>();
+        }else{
+            Debug.Log("player is null");
+        }
+
     }
 
     // Update is called once per frame
@@ -22,6 +26,11 @@ public class GameManager : MonoBehaviour
     }
     //猫が帰る処理
     public void GoHome(){
-        playerSceneController.SwitchScene();
+        if(playerSceneController != null){
+            playerSceneController.SwitchScene();
+        }else{
+            Debug.Log("playerSceneController is null");
+        }
+        
     }
 }
