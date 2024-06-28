@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    //ゲームを司るゲームマネージャー
+    GameManager gameManager;
     //rigid body 力を加えたりする
     Rigidbody2D rbody;
     //移動入力
@@ -29,9 +31,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     private SpriteRenderer spriteRenderer;
     //シーンコントローラー
-    SceneController sceneController;
+    private SceneController sceneController;
     //こいしにゃ〜ゲージアイテムのステータス取得用
-    LoveItemManager loveItemManager;
+    private LoveItemManager loveItemManager;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         loveGaugeManager = FindObjectOfType<LoveGaugeManager>();
-        sceneController = GetComponent<SceneController>();
+        gameManager = FindObjectOfType<GameManager>();
         UpdateLoveGauge();
         
     }
@@ -107,20 +109,20 @@ public class PlayerController : MonoBehaviour
             if(nowLove >= maxLove){
                 //恋しいにゃ〜
                 Debug.Log("BIG Love!hoge!!!!!!!!");
-                sceneController.SwitchScene(); 
+                gameManager.GoHome();
                 return;               
             }
             nowLove ++;
             UpdateLoveGauge();
         } 
-        if (nowLove >= maxLove)
-        {
-            //恋しいにゃ〜
-            Debug.Log("BIG Love!!!!!!!!!");
-            sceneController.SwitchScene();
+        // if (nowLove >= maxLove)
+        // {
+        //     //恋しいにゃ〜
+        //     Debug.Log("BIG Love!!!!!!!!!");
+        //     sceneController.SwitchScene();
 
             
-        }
+        // }
     }
     //恋しいにゃ〜ゲージ増加用
     public void IncreaseMaxLove()
