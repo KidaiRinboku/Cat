@@ -106,14 +106,14 @@ public class PlayerController : MonoBehaviour
     public void IncreaseLove(int addLove)
     {
         for(int i = 0; i < addLove;i++){
+            nowLove ++;
+            UpdateLoveGauge();
             if(nowLove >= maxLove){
                 //恋しいにゃ〜
                 Debug.Log("BIG Love!hoge!!!!!!!!");
                 gameManager.GoHome();
                 return;               
             }
-            nowLove ++;
-            UpdateLoveGauge();
         } 
         // if (nowLove >= maxLove)
         // {
