@@ -6,9 +6,45 @@ public class GameManager : MonoBehaviour
 {
     PlayerController playerController;
     public GameObject player;
-
+    private static GameManager instance;
+    private bool isGamePaused;
     SceneController playerSceneController;
-    // Start is called before the first frame update
+
+    // シングルトンインスタンスのプロパティ
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+            }
+            return instance;
+        }
+    }
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public bool IsGamePaused()
+    {
+        return isGamePaused;
+    }
+
+    public void SetGamePaused(bool paused)
+    {
+        isGamePaused = paused;
+    }
+
     void Start()
     {
         if(player != null){

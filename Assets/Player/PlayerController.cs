@@ -72,7 +72,11 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate() {
             //指定方向に歩く。　ジャンプ中に移動キーをなしても落ちないように条件付け。
             //地面にいるか、速度が０じゃない時歩く。
+            
             bool onGround = onGroundCheck(gameObject);
+            if(GameManager.Instance.IsGamePaused()==true){
+                axisH = 0;
+            }
             if(onGround || axisH!=0){
                rbody.velocity = new Vector2(speed * axisH,rbody.velocity.y);
             }
@@ -87,11 +91,19 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         //恋しいにゃ〜ゲージに関与するアイテムに触った時の処理
-        if(collision.gameObject.tag=="LoveItem"){
+        if(collision.CompareTag("LoveItem")){
             loveItemManager = collision.GetComponent<LoveItemManager>();
             IncreaseLove(loveItemManager.loveUp);
             Destroy(collision.gameObject);
-        }    
+        }
+        if (collision.CompareTag("TalkNPC"))
+        {
+            LinesManager linesManager = collision.GetComponent<LinesManager>();
+            if (linesManager != null && !linesManager.GetIsDisplaying())
+            {
+                linesManager.InitializeDialogue();
+            }
+        }
     }
     //オブジェクトを渡して、地面にいるか判定する
     public bool onGroundCheck(GameObject obj){
@@ -100,7 +112,9 @@ public class PlayerController : MonoBehaviour
     }
     //ジャンプメソッド　ジャンプフラグをONにする
     public void Jump(){
-        goJump = true;
+        if(GameManager.Instance.IsGamePaused()==false){
+            goJump = true;
+        }
     }
     //恋しいにゃーゲージの増加と帰宅に関する処理
     public void IncreaseLove(int addLove)
@@ -115,14 +129,6 @@ public class PlayerController : MonoBehaviour
                 return;               
             }
         } 
-        // if (nowLove >= maxLove)
-        // {
-        //     //恋しいにゃ〜
-        //     Debug.Log("BIG Love!!!!!!!!!");
-        //     sceneController.SwitchScene();
-
-            
-        // }
     }
     //恋しいにゃ〜ゲージ増加用
     public void IncreaseMaxLove()

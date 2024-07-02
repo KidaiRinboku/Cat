@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LoveItem
+  - TalkNPC
   layers:
   - Default
   - TransparentFX
