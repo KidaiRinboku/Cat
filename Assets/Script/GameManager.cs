@@ -10,31 +10,6 @@ public class GameManager : MonoBehaviour
     private bool isGamePaused;
     SceneController playerSceneController;
 
-    // シングルトンインスタンスのプロパティ
-    public static GameManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<GameManager>();
-            }
-            return instance;
-        }
-    }
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public bool IsGamePaused()
     {
         return isGamePaused;

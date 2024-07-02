@@ -1240,6 +1240,7 @@ MonoBehaviour:
   lineEndDelay: 0.5
   dialogueId: DST1001
   dialogueData: {fileID: 11400000, guid: aae58ffa4d4434b529db275ff61ea3cf, type: 2}
+  fadeOutAfterDialogue: 1
 --- !u!1001 &961696336
 PrefabInstance:
   m_ObjectHideFlags: 0

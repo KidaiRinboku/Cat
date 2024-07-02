@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
             //地面にいるか、速度が０じゃない時歩く。
             
             bool onGround = onGroundCheck(gameObject);
-            if(GameManager.Instance.IsGamePaused()==true){
+            if(gameManager.IsGamePaused()==true){
                 axisH = 0;
             }
             if(onGround || axisH!=0){
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
     }
     //ジャンプメソッド　ジャンプフラグをONにする
     public void Jump(){
-        if(GameManager.Instance.IsGamePaused()==false){
+        if(gameManager.IsGamePaused()==false){
             goJump = true;
         }
     }
