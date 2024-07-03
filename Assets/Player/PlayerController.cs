@@ -96,14 +96,6 @@ public class PlayerController : MonoBehaviour
             IncreaseLove(loveItemManager.loveUp);
             Destroy(collision.gameObject);
         }
-        if (collision.CompareTag("TalkNPC"))
-        {
-            LinesManager linesManager = collision.GetComponent<LinesManager>();
-            if (linesManager != null && !linesManager.GetIsDisplaying())
-            {
-                linesManager.InitializeDialogue();
-            }
-        }
     }
     //オブジェクトを渡して、地面にいるか判定する
     public bool onGroundCheck(GameObject obj){
