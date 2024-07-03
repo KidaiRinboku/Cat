@@ -19,7 +19,7 @@ public class LinesManager : MonoBehaviour
     // 会話終了後にオブジェクトをフェードアウトするかどうかを決定するフラグです。
     public bool fadeOutAfterDialogue = false;
     // 会話が完了したかどうかを示すフラグです。
-    public bool isDialogueCompleted = false;
+    private bool isDialogueCompleted = false;
 
     // 会話の各行を格納するリストです。現在の会話エントリのセリフ行が含まれます。
     private List<DialogueLine> dialogueLines;
