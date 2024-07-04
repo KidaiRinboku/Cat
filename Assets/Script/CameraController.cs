@@ -73,8 +73,8 @@ public class CameraController : MonoBehaviour
                 groundHeight = initialBottomLimit;
             }
 
-            //追従対象のX位置を左限と右限の間に制限。プレイヤーを少し左にずらすために8.0fを加算
-            float clampedX = Mathf.Clamp(targetPosition.x + 8.0f, leftLimit, rightLimit);
+            //追従対象のX位置を左限と右限の間に制限。プレイヤーを少し左にずらすために8.0fを加算  + 8.0f,
+            float clampedX = Mathf.Clamp(targetPosition.x, leftLimit, rightLimit);
             //追従対象のY位置を地面の高さから無限大の間に制限
             float clampedY = Mathf.Clamp(targetPosition.y, groundHeight, float.MaxValue);
 
