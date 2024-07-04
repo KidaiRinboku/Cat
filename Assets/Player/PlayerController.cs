@@ -55,14 +55,9 @@ public class PlayerController : MonoBehaviour
         bool onGround = onGroundCheck(gameObject);
         //歩く用の入力チェック
         axisH = Input.GetAxisRaw("Horizontal");
-        if(axisH > 0){
-                //transform.localScale = new Vector2(1,1);
-                spriteRenderer.flipX = false;
-        }
-        else if(axisH < 0){
-                //transform.localScale = new Vector2(-1,1);
-                spriteRenderer.flipX = true;
-        }
+        //地あるく
+        Move(axisH,gameObject);
+    
         //地面にいるときにジャンプ用ボタンが押されてたらジャンプメソッド
         if(onGround&&Input.GetButton("Jump")){
     // if(Input.GetButton("Jump")){
@@ -70,16 +65,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     void FixedUpdate() {
-            //指定方向に歩く。　ジャンプ中に移動キーをなしても落ちないように条件付け。
-            //地面にいるか、速度が０じゃない時歩く。
-            
-            bool onGround = onGroundCheck(gameObject);
-            if(gameManager.IsGamePaused()==true){
-                axisH = 0;
-            }
-            if(onGround || axisH!=0){
-               rbody.velocity = new Vector2(speed * axisH,rbody.velocity.y);
-            }
             //地ジャンプフラグがONの時ジャンプする
             if(goJump){
       //      if(onGround&&goJump){
@@ -96,19 +81,29 @@ public class PlayerController : MonoBehaviour
             IncreaseLove(loveItemManager.loveUp);
             Destroy(collision.gameObject);
         }
-        if (collision.CompareTag("TalkNPC"))
-        {
-            LinesManager linesManager = collision.GetComponent<LinesManager>();
-            if (linesManager != null && !linesManager.GetIsDisplaying())
-            {
-                linesManager.InitializeDialogue();
-            }
-        }
     }
     //オブジェクトを渡して、地面にいるか判定する
     public bool onGroundCheck(GameObject obj){
         bool onGround = Physics2D.CircleCast(transform.position,0.2f,Vector2.down,0.0f,groundLayer);
         return onGround;
+    }
+    //歩く
+    public void Move(float axis,GameObject obj){
+            //向き変える
+            if(gameManager.IsGamePaused()==true){
+                axis = 0;
+            }
+            if(axis > 0){
+                //transform.localScale = new Vector2(1,1);
+                spriteRenderer.flipX = false;
+            }
+                else if(axis < 0){
+                //transform.localScale = new Vector2(-1,1);
+                spriteRenderer.flipX = true;
+            }
+            if(onGroundCheck(obj) || axis!=0){
+               rbody.velocity = new Vector2(speed * axis,rbody.velocity.y);
+            }
     }
     //ジャンプメソッド　ジャンプフラグをONにする
     public void Jump(){
