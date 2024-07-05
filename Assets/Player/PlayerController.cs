@@ -32,32 +32,31 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.IsGamePaused())
-        {
-            axisH = 0;
-            return;
-        }
+        
+
         if(isButtonInput==false){
             //変数のaxisHに変動がない場合はキー入力を受け取る
             axisH = Input.GetAxisRaw("Horizontal");
         }
 
+        Move();
+
         if (Input.GetButton("Jump"))
         {
             Jump();
-        }
+    }
     }
 
     void FixedUpdate()
     {
-        Move();
-
+        if (!gameManager.IsGamePaused()){
         if (goJump)
         {
             Vector2 jumpVec = new Vector2(0, jumpPw);
             rbody.velocity = new Vector2(rbody.velocity.x, 0);
             rbody.AddForce(jumpVec, ForceMode2D.Impulse);
             goJump = false;
+        }
         }
     }
 
@@ -78,6 +77,9 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
+        if (gameManager.IsGamePaused()){
+            axisH = 0;
+        }
         if (axisH > 0)
         {
             spriteRenderer.flipX = false;
