@@ -62,6 +62,8 @@ public class LinesManager : MonoBehaviour
         {
             return;
         }
+        Color originalColor = lineText.color;
+        lineText.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1.0f);
         //ゲームマネージャーのインスタンスを取得します。
         gameManager = FindObjectOfType<GameManager>();
         //会話開始時にゲームをポーズします。
